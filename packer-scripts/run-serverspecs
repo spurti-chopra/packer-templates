@@ -22,9 +22,9 @@ main() {
   fi
 
   if [[ "$(uname -m)" =~ ppc64 ]]; then
-     __install_serverspec
+    __install_serverspec
   else
-     __install_chefdk "${PACKER_CHEF_PREFIX}"
+    __install_chefdk "${PACKER_CHEF_PREFIX}"
   fi
 
   # shellcheck disable=SC2119
