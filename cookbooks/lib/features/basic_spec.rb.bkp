@@ -38,7 +38,7 @@ describe command('shellcheck --version') do
   its(:stdout) { should match(/^version: \d+\.\d+\.\d+/) }
 end
 
-describe command('shfmt -version'), :if => os[:arch] !~ /ppc64 do
+describe command('shfmt -version'), :if => os[:arch] !~ /ppc64/ do
   its(:stdout) { should match(/^v\d+\.\d+\.\d+/) }
 end
 
@@ -612,7 +612,12 @@ end
 
 describe file('/home/travis/bin') do
   it { should be_directory }
-  it { should be_writable }
+  it 'is writable' do
+    File.open('/home/travis/bin/.travis-write-test', 'w') do |f|
+      f.puts Time.now.utc.to_s
+    end
+    expect(File.read('/home/travis/bin/.travis-write-test')).to_not be_empty
+  end
 end
 
 def test_txt
@@ -785,7 +790,12 @@ end
 
 describe file('/opt') do
   it { should be_directory }
-  it { should be_writable }
+  it 'is writable' do
+    File.open('/opt/.travis-write-test', 'w') do |f|
+      f.puts Time.now.utc.to_s
+    end
+    expect(File.read('/opt/.travis-write-test')).to_not be_empty
+  end
 end
 
 describe file('/etc/hosts'), docker: false do
