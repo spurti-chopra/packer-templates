@@ -38,7 +38,7 @@ describe command('shellcheck --version') do
   its(:stdout) { should match(/^version: \d+\.\d+\.\d+/) }
 end
 
-describe command('shfmt -version'), :if => os[:arch] !~ /ppc64 do
+describe command('shfmt -version'), :if => os[:arch] !~ /ppc64/ do
   its(:stdout) { should match(/^v\d+\.\d+\.\d+/) }
 end
 
